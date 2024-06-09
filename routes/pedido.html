@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedidos</title>
+  <style>
+    body {
+      font-family: monospace;
+      text-align: left;
+      margin: 0 auto;
+      padding: 30px;
+      background-color: #f1ce00;
+    }
+
+    h1,
+    h2 {
+      text-align: left;
+      color: brown;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Resumo do pedido</h1>
+  <table>
+    <tr>
+      Descrição do pedido:
+    </tr>
+    <tr>
+      <td id="pedido-descricao">----------</td>
+    </tr>
+  </table>
+
+  <h2>Total do pedido:</h2>
+  <p id="pedido-total">R$----------</p>
+
+  <button id="voltar">Retornar</button>
+  <button id="avancar">Confirmar</button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Extrair os parâmetros da URL:
+      const urlParams = new URLSearchParams(window.location.search);
+      const pedidoString = urlParams.get('pedido');
+
+      if (pedidoString) {
+        // Converter a string JSON em objeto JavaScript
+        const pedidoJSON = JSON.parse(pedidoString);
+
+        // Atualizar o conteudo da pagina com os detalhes do pedido
+        const descricaoPedidoElement = document.getElementById('pedido-descricao');
+        descricaoPedidoElement.innerHTML = pedidoJSON.descricao;
+
+        const totalPedidoElement = document.getElementById('pedido-total');
+        totalPedidoElement.textContent = 'Total do pedido R$' + pedidoJSON.total
+
+        const buttonVoltar = document.getElementById("voltar");
+        buttonVoltar.addEventListener('click', () => {
+          window.location.href = '/cardapio';
+        });
+
+        const buttonAvancar = document.getElementById("avancar");
+        buttonAvancar.addEventListener('click', () => {
+          // Supõe que o pedidoJSON está disponível aqui
+          const bebidaJSON = {
+            descricao: pedidoJSON.descricao,
+            total: pedidoJSON.total
+          };
+
+          // Converter o objeto JSON em uma string
+          const bebidaJSONString = JSON.stringify(bebidaJSON);
+
+          // Construir a URL com o parâmetro de consulta
+          window.location.href = `/bebidas?bebidas=${bebidaJSONString}`;
+        });
+
+      } else {
+        //Caso não haja dados do pedido:
+        const pedidoDetailsElement = document.getElementById('pedido-details');
+        pedidoDetailsElement.innerHTML = '<p>Não foi possível  recuperar os detalhes do pedido</p>'
+      }
+    });
+  </script>
+</body>
+
+</html>

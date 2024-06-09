@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bebidas</title>
+  <style>
+    body {
+      font-family: monospace;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    #remover {
+      background-color: rgb(196, 15, 15);
+    }
+
+    #remover:hover {
+      background-color: red;
+    }
+
+    th,
+    td {
+      border: 1px solid rgb(255, 255, 255);
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: #f1ce00;
+    }
+
+    .btn {
+      padding: 5px 10px;
+      background-color: green;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: greenyellow;
+    }
+
+    .container {
+      display: flex;
+      /* Ajuste conforme necessário */
+      justify-content: space-between;
+    }
+
+    .sem-estoque {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Bebidas disponíveis:</h1>
+
+  <table id="produtos">
+    <thead>
+      <tr>
+        <th>Produto</th>
+        <th>Preço</th>
+        <th>Estoque</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody id="produtos-corpo"></tbody>
+  </table>
+  <h2>Resumo do pedido:</h2>
+  <div class="container">
+    <table id="carrinho">
+      <thead>
+        <th>Produto</th>
+        <th>Preço</th>
+        <th>Quantidade</th>
+        <th>Ação</th>
+      </thead>
+      <tbody id="carrinho-corpo"></tbody>
+    </table>
+
+    <table>
+      <thead>
+        <th>Pizza</th>
+      </thead>
+      <tr>
+        <td id="pedido-descricao">----------</td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>Total do pedido: <span id="total">R$ 0,00</span></h2>
+
+  <button id="voltar">Retornar</button>
+
+  <script src="./bebida.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Extrair os parâmetros da URL:
+      const urlParams = new URLSearchParams(window.location.search);
+      const pedidoString = urlParams.get('bebidas');
+
+      if (pedidoString) {
+        // Converter a string JSON em objeto JavaScript
+        const pedidoJSON = JSON.parse(pedidoString);
+
+        // Atualizar o conteudo da pagina com os detalhes do pedido
+        const descricaoPedidoElement = document.getElementById('pedido-descricao');
+        descricaoPedidoElement.innerHTML = pedidoJSON.descricao;
+      } else {
+        //Caso não haja dados do pedido:
+        const pedidoDetailsElement = document.getElementById('pedido-details');
+        pedidoDetailsElement.innerHTML = '<p>Não foi possível  recuperar os detalhes do pedido</p>'
+      }
+
+      const buttonVoltar = document.getElementById("voltar");
+      buttonVoltar.addEventListener('click', () => {
+        window.location.href = `/pedido?pedido=${pedidoString}`
+      });
+    });
+  </script>
+</body>
+
+</html>

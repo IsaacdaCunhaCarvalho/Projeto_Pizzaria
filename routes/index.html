@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pizzaria do Zé</title>
+  <style>
+    body{
+      font-family: monospace;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background-color: #f1ce00;
+    }
+
+    .container{
+      max-width: 800px;
+      margin:  100px auto;
+      padding:  20px;
+      background-color: azure;
+      border-radius: 10px;
+      box-shadow:  0 0 10px rgba(0, 0, 0, 0,2);
+    }
+
+    h1{
+      color: brown;
+    }
+
+    button{
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: goldenrod;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover{
+      background-color: black;
+    }
+  </style>
+
+</head>
+<body>
+  <img src="/pizzariaLogo.jpg" alt="Logo" width="300" height="300">
+  <div class="container">
+    <h1>Bem-vindo a Pizzaria do Zé</h1>
+    <h2>Conheça nossas deliciosas opções de pizza para comer!!!</h2>
+    <button onclick="window.location.href='cardapio'">Fazer pedido</button>
+  </div>
+</body>
+</html>
